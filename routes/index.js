@@ -1,11 +1,6 @@
 const express = require('express');
 const router = express.Router();
 
-const {context} = require('./formatterController');
-
-router.post('/',context);
-
-
-
+router.use('/formatter', require('./formatterRouter'));
 
 module.exports = router;

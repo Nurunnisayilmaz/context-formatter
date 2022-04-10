@@ -2,9 +2,9 @@ const express = require('express');
 const app = express();
 const port = 3000;
 
-const formatterRouter = require('./formatterRouter');
+const formatterRouter = require('C:\\Users\\Nisa\\Desktop\\NodeJs\\context-formatter\\routes\\index.js');
 
-app.use('/context',formatterRouter);
+app.use('/api',formatterRouter);
 
 
 
