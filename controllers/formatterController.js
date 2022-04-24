@@ -1,39 +1,26 @@
+const context = async (req, res) => {
 
-const context = async (req,res) =>{
-
-     const {value} = req.body;
-     const valueId = [];
-     const list = [];
-     const duplicateList = [];
-     const uniqueList  = [];
+    const {value} = req.body;
+    const valueId = [];
+    const duplicateList = [];
+    const uniqueList = [];
 
     for (let i = 0; i < value.length; i++) {
+        const isDuplicateObject = typeof value[i] === 'object' ? (value[i].id !== undefined && value[i].id !== null && valueId.includes(value[i].id)) : false
 
-        if (typeof value[i]==='object'){
-            if(valueId.includes(value[i].id)){
-                duplicateList.push(value[i]);
-            }else {
+        if (isDuplicateObject || uniqueList.includes(value[i])) {
+            duplicateList.push(value[i]);
+        } else {
+
+            if (value[i].id !== undefined && value[i].id !== null) {
                 valueId.push(value[i].id);
-                uniqueList.push(value[i]);
             }
 
-        }else{
-            if (list.includes(value[i])){
-                duplicateList.push(value[i]);
-            }else {
-                list.push(value[i]);
-                uniqueList.push(value[i]);
-            }
+            uniqueList.push(value[i]);
         }
     }
 
-
-
-    return res.send(duplicateList);
-
+    return res.status(200).json({status: 'success', duplicatedData: duplicateList, uniqueData: uniqueList})
 }
-
-
-
 
 module.exports = {context};
