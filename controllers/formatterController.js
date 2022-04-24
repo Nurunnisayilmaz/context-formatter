@@ -2,13 +2,36 @@
 const context = async (req,res) =>{
 
      const {value} = req.body;
+     const valueId = [];
+     const list = [];
+     const duplicateList = [];
+     const uniqueList  = [];
 
-    const uniqueList = Array.from(new Set(value.map(JSON.stringify))).map(JSON.parse);
+    for (let i = 0; i < value.length; i++) {
 
-    return res.send(uniqueList);
+        if (typeof value[i]==='object'){
+            if(valueId.includes(value[i].id)){
+                duplicateList.push(value[i]);
+            }else {
+                valueId.push(value[i].id);
+                uniqueList.push(value[i]);
+            }
+
+        }else{
+            if (list.includes(value[i])){
+                duplicateList.push(value[i]);
+            }else {
+                list.push(value[i]);
+                uniqueList.push(value[i]);
+            }
+        }
+    }
+
+
+
+    return res.send(duplicateList);
 
 }
-
 
 
 
